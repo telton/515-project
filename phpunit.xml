@@ -31,5 +31,6 @@
         <env name="MAIL_DRIVER" value="array"/>
         <env name="DB_CONNECTION" value="testing"/>
         <env name="MAIL_PRETEND" value="true"/>
+        <env name="APP_KEY" value="base64:68x4kMmkHRNVoPgdAvT7gTmPI8TAFVsOuhAVBr2YX+s="/>
     </php>
 </phpunit>
