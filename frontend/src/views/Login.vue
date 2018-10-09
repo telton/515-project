@@ -3,7 +3,7 @@
     <div class="bg-white border-t-4 border-purple px-4 pt-3">
       <p class="font-bold text-center text-purple-darkest">Log in</p>
     </div>
-    <form class="bg-white rounded-b px-8 pt-6 pb-8 mb-4">
+    <form class="bg-white rounded-b px-8 pt-6 pb-8 mb-4" @keydown.enter.prevent="login">
       <div class="mb-4">
         <label class="block text-grey-darker text-sm font-bold mb-2" for="email">
           E-mail Address
@@ -86,20 +86,22 @@ export default {
   },
   methods: {
     login() {
-      this.$refs.loginButton.classList.add('btn-disabled');
-      this.$refs.loginButton.classList.add('spinner');
+      if (!this.isLoginButtonDisabled) {
+        this.$refs.loginButton.classList.add('btn-disabled');
+        this.$refs.loginButton.classList.add('spinner');
 
-      firebase
-        .auth()
-        .signInWithEmailAndPassword(this.email, this.password)
-        .then(() => {
-          this.$router.replace('home');
-        })
-        .catch(err => {
-          this.$refs.loginButton.classList.remove('btn-disabled');
-          this.$refs.loginButton.classList.remove('spinner');
-          console.log(err);
-        });
+        firebase
+          .auth()
+          .signInWithEmailAndPassword(this.email, this.password)
+          .then(() => {
+            this.$router.replace('home');
+          })
+          .catch(err => {
+            this.$refs.loginButton.classList.remove('btn-disabled');
+            this.$refs.loginButton.classList.remove('spinner');
+            console.log(err);
+          });
+      }
     },
   },
 };

@@ -3,7 +3,7 @@
     <div class="bg-white border-t-4 border-purple px-4 pt-3">
       <p class="font-bold text-center text-purple-darkest">Register for an account</p>
     </div>
-    <form class="bg-white rounded-b px-8 pt-6 pb-8 mb-4">
+    <form class="bg-white rounded-b px-8 pt-6 pb-8 mb-4" @keydown.enter.prevent="register">
       <div class="mb-4">
         <label class="block text-grey-darker text-sm font-bold mb-2" for="email">
           E-mail Address
@@ -107,20 +107,22 @@ export default {
   },
   methods: {
     register() {
-      this.$refs.registerButton.classList.add('btn-disabled');
-      this.$refs.registerButton.classList.add('spinner');
+      if (!this.isRegisterButtonDisabled) {
+        this.$refs.registerButton.classList.add('btn-disabled');
+        this.$refs.registerButton.classList.add('spinner');
 
-      firebase
-        .auth()
-        .createUserWithEmailAndPassword(this.email, this.password)
-        .then(() => {
-          this.$router.replace('home');
-        })
-        .catch(err => {
-          this.$refs.registerButton.classList.remove('btn-disabled');
-          this.$refs.registerButton.classList.remove('spinner');
-          console.log(err);
-        });
+        firebase
+          .auth()
+          .createUserWithEmailAndPassword(this.email, this.password)
+          .then(() => {
+            this.$router.replace('home');
+          })
+          .catch(err => {
+            this.$refs.registerButton.classList.remove('btn-disabled');
+            this.$refs.registerButton.classList.remove('spinner');
+            console.log(err);
+          });
+      }
     },
     resetForm() {
       this.email = '';
