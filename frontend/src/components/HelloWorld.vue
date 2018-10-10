@@ -1,5 +1,6 @@
 <template>
   <div class="hello">
+    {{ msg }}
     <button @click="logout">Log Out</button>
   </div>
 </template>
