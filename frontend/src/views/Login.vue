@@ -3,19 +3,22 @@
     <div class="bg-white border-t-4 border-purple px-4 pt-3">
       <p class="font-bold text-center text-purple-darkest">Log in</p>
     </div>
-    <form class="bg-white rounded-b px-8 pt-6 pb-8 mb-4">
+    <form class="bg-white rounded-b px-8 pt-6 pb-8 mb-4" @keydown.enter.prevent="validateBeforeLogin">
       <div class="mb-4">
         <label class="block text-grey-darker text-sm font-bold mb-2" for="email">
           E-mail Address
         </label>
         <input 
           class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline" 
-          id="email" 
-          type="email" 
-          v-model="email"
+          id="email"
+          name="email"
+          type="email"
+          v-model="email" 
+          v-validate="'required|email'" 
           placeholder="john@example.com"
           required
         >
+        <p class="text-red text-xs pt-2" v-if="errors.has('email')">{{ errors.first('email') }}</p>
       </div>
       <div class="mb-6">
         <label class="block text-grey-darker text-sm font-bold mb-2" for="password">
@@ -24,15 +27,18 @@
         <input 
           class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline" 
           id="password" 
+          name="password"
           type="password" 
           v-model="password"
+          v-validate="'required'"
           placeholder="******************"
           required
         >
+        <p class="text-red text-xs pt-2" v-if="errors.has('password')">{{ errors.first('password') }}</p>
       </div>
       <div class="flex items-center justify-between">
         <button 
-          @click.prevent="login"
+          @click.prevent="validateBeforeLogin"
           :disabled="isLoginButtonDisabled"
           class="bg-purple hover:bg-purple-dark text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" 
           type="button"
@@ -85,21 +91,30 @@ export default {
     },
   },
   methods: {
-    login() {
-      this.$refs.loginButton.classList.add('btn-disabled');
-      this.$refs.loginButton.classList.add('spinner');
+    validateBeforeLogin() {
+      this.$validator.validateAll();
 
-      firebase
-        .auth()
-        .signInWithEmailAndPassword(this.email, this.password)
-        .then(() => {
-          this.$router.replace('home');
-        })
-        .catch(err => {
-          this.$refs.loginButton.classList.remove('btn-disabled');
-          this.$refs.loginButton.classList.remove('spinner');
-          console.log(err);
-        });
+      if (!this.errors.any()) {
+        this.login();
+      }
+    },
+    login() {
+      if (!this.isLoginButtonDisabled) {
+        this.$refs.loginButton.classList.add('btn-disabled');
+        this.$refs.loginButton.classList.add('spinner');
+
+        firebase
+          .auth()
+          .signInWithEmailAndPassword(this.email, this.password)
+          .then(() => {
+            this.$router.replace('home');
+          })
+          .catch(err => {
+            this.$refs.loginButton.classList.remove('btn-disabled');
+            this.$refs.loginButton.classList.remove('spinner');
+            console.log(err);
+          });
+      }
     },
   },
 };

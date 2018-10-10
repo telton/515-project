@@ -6,11 +6,14 @@ import store from './store';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import firebaseConfig from './firebase-config';
+import VeeValidate from 'vee-validate';
 
 // Pull in styles.
 import './assets/scss/app.scss';
 
 Vue.config.productionTip = false;
+
+Vue.use(VeeValidate);
 
 let app;
 firebase.initializeApp(firebaseConfig);

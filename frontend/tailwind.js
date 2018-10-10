@@ -215,14 +215,7 @@ module.exports = {
             'Georgia',
             'serif',
         ],
-        mono: [
-            'Menlo',
-            'Monaco',
-            'Consolas',
-            'Liberation Mono',
-            'Courier New',
-            'monospace',
-        ],
+        mono: ['Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', 'monospace'],
     },
 
     /*
@@ -406,10 +399,7 @@ module.exports = {
   |
   */
 
-    borderColors: global.Object.assign(
-        { default: colors['grey-light'] },
-        colors
-    ),
+    borderColors: global.Object.assign({ default: colors['grey-light'] }, colors),
 
     /*
   |-----------------------------------------------------------------------------
@@ -731,6 +721,7 @@ module.exports = {
         lg: '0 15px 30px 0 rgba(0,0,0,0.11), 0 5px 15px 0 rgba(0,0,0,0.08)',
         inner: 'inset 0 2px 4px 0 rgba(0,0,0,0.06)',
         outline: '0 0 0 3px rgba(52,144,220,0.5)',
+        red: '0 0 0 3px rgba(255,0,0,0.3)',
         none: 'none',
     },
 
