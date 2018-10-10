@@ -1,0 +1,7 @@
+input[aria-invalid='true'] {
+    @apply border-red;
+
+    &:focus {
+        @apply shadow-red;
+    }
+}
