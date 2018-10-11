@@ -24,7 +24,6 @@ jobs:
       before_install:
         - openssl aes-256-cbc -K $encrypted_801c70028c9b_key -iv $encrypted_801c70028c9b_iv
           -in id_rsa.enc -out id_rsa -d
-        - cd frontend && npm install
       install:
-        - travis_retry composer update --prefer-dist --no-interaction --prefer-stable --no-suggest
+        - travis_retry cd frontend && npm install
       script: npm run
