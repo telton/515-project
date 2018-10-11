@@ -26,4 +26,4 @@ jobs:
           -in id_rsa.enc -out id_rsa -d
       install:
         - travis_retry cd frontend && npm install
-      script: npm run
+      script: npm run test:unit
