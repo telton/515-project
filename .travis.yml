@@ -27,11 +27,12 @@ jobs:
       install:
         - travis_retry cd frontend && npm install
       script: npm run test:unit
-    - stage: 'Deploy prod'
-      name: 'Deploy to production'
-      script: ssh deploy@515-project.tylerelton.com && cd /var/www/515-project.tylerelton.com && git pull
-      if: branch = master
-    - stage: 'Deploy dev'
-      name: 'Deploy to development'
-      script: ssh deploy@515-project.tylerelton.com && cd /var/www/515-project-dev.tylerelton.com && git pull
-      if: branch = dev
+deploy:
+  provider: script
+  script: bash .travis/scripts/deploy-dev.sh
+  on:
+    branch: develop
+  provider: script
+  script: bash .travis/scripts/deploy.sh
+  on:
+    branch: master
