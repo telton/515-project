@@ -3,7 +3,7 @@ cache:
     - '$HOME/.composer/cache'
 jobs:
   include:
-    - stage: 'php-tests'
+    - stage: 'PHP Tests'
       name: 'PHPUnit tests'
       language: php
       php:
@@ -16,8 +16,8 @@ jobs:
       install:
         - travis_retry composer update --prefer-dist --no-interaction --prefer-stable --no-suggest
       script: vendor/bin/phpunit
-    - stage: 'js-tests'
-      name: 'Jest tests'
+    - stage: 'JS Tests'
+      name: 'Jest unit tests'
       language: node_js
       node_js:
         - 'lts/*'
@@ -27,3 +27,11 @@ jobs:
       install:
         - travis_retry cd frontend && npm install
       script: npm run test:unit
+    - stage: 'Deploy prod'
+      name: 'Deploy to production'
+      script: ssh deploy@515-project.tylerelton.com && cd /var/www/515-project.tylerelton.com && git pull
+      if: branch = master
+    - stage: 'Deploy dev'
+      name: 'Deploy to development'
+      script: ssh deploy@515-project.tylerelton.com && cd /var/www/515-project-dev.tylerelton.com && git pull
+      if: branch = dev
