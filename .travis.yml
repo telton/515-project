@@ -29,5 +29,6 @@ jobs:
         - eval "$(ssh-agent -s)"
         - chmod 600 /tmp/id_rsa
         - ssh-add /tmp/id_rsa
-      script: ssh -o StrictHostKeyChecking=no $DEPLOY_USER@$SERVER_HOST && cd /var/www/515-project-dev.tylerelton.com && git pull && composer update && cd frontend && npm install
+        - ssh-keyscan $SERVER_HOST >> ~/.ssh/known_hosts
+      script: ssh $DEPLOY_USER@$SERVER_HOST && cd /var/www/515-project-dev.tylerelton.com && git pull && composer update && cd frontend && npm install
       if: branch = dev
