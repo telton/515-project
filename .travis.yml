@@ -29,5 +29,5 @@ jobs:
         - eval "$(ssh-agent -s)"
         - chmod 600 /tmp/id_rsa
         - ssh-add /tmp/id_rsa
-      script: ssh $DEPLOY_USER@515-project.tylerelton.com && cd /var/www/515-project-dev.tylerelton.com && git pull && composer update && cd frontend && npm install
+      script: ssh $DEPLOY_USER@$SERVER_HOST && cd /var/www/515-project-dev.tylerelton.com && git pull && composer update && cd frontend && npm install
       if: branch = dev
