@@ -7,6 +7,8 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import firebaseConfig from './firebase-config';
 import VeeValidate from 'vee-validate';
+import Notifications from 'vue-notification';
+import velocity from 'velocity-animate'
 
 // Pull in styles.
 import './assets/scss/app.scss';
@@ -14,6 +16,7 @@ import './assets/scss/app.scss';
 Vue.config.productionTip = false;
 
 Vue.use(VeeValidate);
+Vue.use(Notifications, { velocity });
 
 let app;
 firebase.initializeApp(firebaseConfig);
