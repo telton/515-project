@@ -8,7 +8,10 @@ import 'firebase/auth';
 import firebaseConfig from './firebase-config';
 import VeeValidate from 'vee-validate';
 import Notifications from 'vue-notification';
-import velocity from 'velocity-animate'
+import velocity from 'velocity-animate';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import Icons from './fontawesome-icons';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 // Pull in styles.
 import './assets/scss/app.scss';
@@ -17,6 +20,12 @@ Vue.config.productionTip = false;
 
 Vue.use(VeeValidate);
 Vue.use(Notifications, { velocity });
+
+// Add the icons to the library.
+library.add(Icons);
+
+// Register the fontawesome component.
+Vue.component('fa', FontAwesomeIcon);
 
 let app;
 firebase.initializeApp(firebaseConfig);

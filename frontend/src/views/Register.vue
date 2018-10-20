@@ -3,17 +3,18 @@
     <div class="bg-white border-t-4 border-purple px-4 pt-3">
       <p class="font-bold text-center text-purple-darkest">Register for an account</p>
     </div>
-    <form class="bg-white rounded-b px-8 pt-6 pb-8 mb-4" @keydown.enter.prevent="validateBeforeRegister">
+    <form
+      class="bg-white rounded-b px-8 pt-6 pb-8 mb-4"
+      @keydown.enter.prevent="validateBeforeRegister"
+    >
       <div class="mb-4">
-        <label class="block text-grey-darker text-sm font-bold mb-2" for="email">
-          E-mail Address
-        </label>
-        <input 
-          class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline" 
-          id="email" 
-          name="email" 
-          type="email" 
-          v-model="email" 
+        <label class="block text-grey-darker text-sm font-bold mb-2" for="email">E-mail Address</label>
+        <input
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
+          id="email"
+          name="email"
+          type="email"
+          v-model="email"
           v-validate="'required|email'"
           placeholder="john@example.com"
           required
@@ -21,55 +22,58 @@
         <p class="text-red text-xs pt-2" v-if="errors.has('email')">{{ errors.first('email') }}</p>
       </div>
       <div class="mb-4">
-        <label class="block text-grey-darker text-sm font-bold mb-2" for="password">
-          Password
-        </label>
-        <input 
-          class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline" 
-          id="password" 
-          name="password" 
-          type="password" 
-          v-model="password" 
+        <label class="block text-grey-darker text-sm font-bold mb-2" for="password">Password</label>
+        <input
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
+          id="password"
+          name="password"
+          type="password"
+          v-model="password"
           v-validate="'required|confirmed:password_confirm|min:6'"
           placeholder="******************"
           required
         >
-        <p class="text-red text-xs pt-2" v-if="errors.has('password')">{{ errors.first('password') }}</p>
+        <p
+          class="text-red text-xs pt-2"
+          v-if="errors.has('password')"
+        >{{ errors.first('password') }}</p>
       </div>
       <div class="mb-6">
-        <label class="block text-grey-darker text-sm font-bold mb-2" for="password_confirm">
-          Confirm Your Password
-        </label>
-        <input 
-          class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline" 
-          id="password_confirm" 
-          name="password_confirm"  
-          type="password" 
+        <label
+          class="block text-grey-darker text-sm font-bold mb-2"
+          for="password_confirm"
+        >Confirm Your Password</label>
+        <input
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
+          id="password_confirm"
+          name="password_confirm"
+          type="password"
           v-model="passwordConfirm"
           v-validate="'required'"
           ref="password_confirm"
           placeholder="******************"
           required
         >
-        <p class="text-red text-xs pt-2" v-if="errors.has('password_confirm')">{{ errors.first('password_confirm') }}</p>
+        <p
+          class="text-red text-xs pt-2"
+          v-if="errors.has('password_confirm')"
+        >{{ errors.first('password_confirm') }}</p>
       </div>
       <div class="flex items-center">
-        <button 
+        <button
           @click.prevent="validateBeforeRegister"
           :disabled="isRegisterButtonDisabled"
-          class="bg-purple hover:bg-purple-dark text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" 
+          class="bg-purple hover:bg-purple-dark text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           type="button"
           ref="registerButton"
         >
-          Register
+          <fa icon="share-square"></fa>Register
         </button>
         <button
           @click.prevent="resetForm"
-          class="mx-4 flex-no-shrink border-transparent border-4 text-grey-dark hover:text-grey-darker text-sm py-1 px-2 rounded focus:outline-none focus:shadow-outline" 
+          class="mx-4 flex-no-shrink border-transparent border-4 text-grey-dark hover:text-grey-darker text-sm py-1 px-2 rounded focus:outline-none focus:shadow-outline"
           type="button"
-        >
-          Cancel
-        </button>
+        >Cancel</button>
       </div>
     </form>
   </div>
@@ -134,10 +138,15 @@ export default {
           .then(() => {
             this.$router.replace('home');
           })
-          .catch(err => {
+          .catch(() => {
+            this.$notify({
+              type: 'error',
+              title: 'Error!',
+              text: 'There was an error creating your account. Please verify that the information is correct and try again.',
+              duration: 5000
+            })
             this.$refs.registerButton.classList.remove('btn-disabled');
             this.$refs.registerButton.classList.remove('spinner');
-            console.log(err);
           });
       }
     },

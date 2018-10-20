@@ -45,7 +45,9 @@
           class="bg-purple hover:bg-purple-dark text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           type="button"
           ref="loginButton"
-        >Log In</button>
+        >
+          <fa icon="sign-in-alt"></fa>Log In
+        </button>
         <router-link
           to="/reset-password"
           class="inline-block align-baseline font-bold text-sm text-purple hover:text-purple-dark"
@@ -113,10 +115,16 @@ export default {
           .then(() => {
             this.$router.replace('home');
           })
-          .catch(err => {
+          .catch(() => {
+            this.$notify({
+              type: 'error',
+              title: 'Error!',
+              text: 'There was an error logging into your account. Please verify that your information is correct and try again.',
+              duration: 5000
+            });
             this.$refs.loginButton.classList.remove('btn-disabled');
             this.$refs.loginButton.classList.remove('spinner');
-            console.log(err);
+
           });
       }
     },

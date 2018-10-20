@@ -28,7 +28,9 @@
           class="bg-purple hover:bg-purple-dark text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           type="button"
           ref="resetButton"
-        >Password Reset</button>
+        >
+          <fa icon="share-square"></fa>Password Reset
+        </button>
       </div>
     </form>
   </div>
@@ -89,10 +91,15 @@ export default {
             this.$refs.resetButton.classList.remove('btn-disabled');
             this.$refs.resetButton.classList.remove('spinner');
           })
-          .catch(err => {
+          .catch(() => {
+            this.$notify({
+              type: 'error',
+              title: 'Error!',
+              text: `An account with the e-mail ${this.email} was not found. Please verify the e-mail is correct and try again.`,
+              duration: 5000
+            });
             this.$refs.resetButton.classList.remove('btn-disabled');
             this.$refs.resetButton.classList.remove('spinner');
-            console.log(err);
           })
       }
     }
