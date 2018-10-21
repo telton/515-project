@@ -4,7 +4,6 @@ import Home from './views/Home.vue';
 import Login from './views/Login.vue';
 import Register from './views/Register.vue';
 import ResetPassword from './views/ResetPassword.vue';
-import About from './views/About.vue';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 
@@ -41,14 +40,6 @@ let router = new Router({
             path: '/home',
             name: 'home',
             component: Home,
-            meta: {
-                requiresAuth: true,
-            },
-        },
-        {
-            path: '/about',
-            name: 'about',
-            component: About,
             meta: {
                 requiresAuth: true,
             },
