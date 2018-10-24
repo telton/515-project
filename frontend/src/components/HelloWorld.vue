@@ -1,29 +1,13 @@
 <template>
-  <div class="hello">
-    {{ msg }}
-    <button @click="logout">Log Out</button>
-  </div>
+  <div class="hello">{{ msg }}</div>
 </template>
 
 <script>
-import firebase from 'firebase/app';
-import 'firebase/auth';
-
 export default {
   name: 'HelloWorld',
   props: {
     msg: String,
-  },
-  methods: {
-    logout() {
-      firebase
-        .auth()
-        .signOut()
-        .then(() => {
-          this.$router.replace('login');
-        });
-    },
-  },
+  }
 };
 </script>
 

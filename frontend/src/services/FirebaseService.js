@@ -19,5 +19,10 @@ export default {
     return firebase
             .auth()
             .sendPasswordResetEmail(email);
+  },
+  logout() {
+    return firebase
+            .auth()
+            .signOut();
   }
 };
