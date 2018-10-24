@@ -131,7 +131,6 @@ export default {
 
         this.$store.dispatch('auth/CREATE_USER', { email: this.email, password: this.password })
           .then(() => {
-            this.$store.commit('auth/SET_USER', { user: this.email });
             this.$router.replace('home');
           })
           .catch(err => {

@@ -1,5 +1,4 @@
 import FirebaseService from '@/services/FirebaseService';
-import { isEmpty } from 'lodash';
 
 export default {
   namespaced: true,
@@ -7,17 +6,11 @@ export default {
     user: {},
   },
   getters: {
-    isLoggedIn(state) {
-      return !isEmpty(state.user);
+    isLoggedIn() {
+      return FirebaseService.currentUser() != null;
     }
   },
-  mutations: {
-    SET_USER: (state, { user }) => {
-      if (user.trim() != '') {
-        state.user = user;
-      }
-    }
-  },
+  mutations: {},
   actions: {
     CREATE_USER(store, { email, password }) {
       return FirebaseService.createUser(email, password);

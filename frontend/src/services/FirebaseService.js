@@ -2,6 +2,9 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 
 export default {
+  currentUser() {
+    return firebase.auth().currentUser;
+  },
   createUser(email, password) {
     return firebase
             .auth()
