@@ -80,9 +80,6 @@
 </template>
 
 <script>
-import firebase from 'firebase/app';
-import 'firebase/auth';
-
 export default {
   name: 'Register',
   data() {
@@ -132,17 +129,16 @@ export default {
         this.$refs.registerButton.classList.add('btn-disabled');
         this.$refs.registerButton.classList.add('spinner');
 
-        firebase
-          .auth()
-          .createUserWithEmailAndPassword(this.email, this.password)
+        this.$store.dispatch('auth/CREATE_USER', { email: this.email, password: this.password })
           .then(() => {
+            this.$store.commit('auth/SET_USER', { user: this.email });
             this.$router.replace('home');
           })
-          .catch(() => {
+          .catch(err => {
             this.$notify({
               type: 'error',
               title: 'Error!',
-              text: 'There was an error creating your account. Please verify that the information is correct and try again.',
+              text: `${err.message}`,
               duration: 5000
             })
             this.$refs.registerButton.classList.remove('btn-disabled');

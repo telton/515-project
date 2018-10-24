@@ -66,9 +66,6 @@
 </template>
 
 <script>
-import firebase from 'firebase/app';
-import 'firebase/auth';
-
 export default {
   name: 'Login',
   data() {
@@ -109,22 +106,20 @@ export default {
         this.$refs.loginButton.classList.add('btn-disabled');
         this.$refs.loginButton.classList.add('spinner');
 
-        firebase
-          .auth()
-          .signInWithEmailAndPassword(this.email, this.password)
+        this.$store.dispatch('auth/LOG_IN', { email: this.email, password: this.password })
           .then(() => {
+            this.$store.commit('auth/SET_USER', { user: this.email });
             this.$router.replace('home');
           })
-          .catch(() => {
+          .catch(err => {
             this.$notify({
               type: 'error',
               title: 'Error!',
-              text: 'There was an error logging into your account. Please verify that your information is correct and try again.',
+              text: `${err.message}`,
               duration: 5000
             });
             this.$refs.loginButton.classList.remove('btn-disabled');
             this.$refs.loginButton.classList.remove('spinner');
-
           });
       }
     },

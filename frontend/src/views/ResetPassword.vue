@@ -37,9 +37,6 @@
 </template>
 
 <script>
-import firebase from 'firebase/app';
-import 'firebase/auth';
-
 export default {
   name: 'ResetPassword',
   data() {
@@ -79,15 +76,15 @@ export default {
         this.$refs.resetButton.classList.add('btn-disabled');
         this.$refs.resetButton.classList.add('spinner');
 
-        firebase
-          .auth()
-          .sendPasswordResetEmail(this.email)
+        this.$store.dispatch('auth/RESET_PASSWORD', { email: this.email })
           .then(() => {
             this.$notify({
               type: 'success',
               title: 'Success!',
-              text: `A password reset e-mail has been sent to: ${this.email}.`
+              text: `A password reset e-mail has been sent to: ${this.email}.`,
+              duration: 5000
             });
+
             this.$refs.resetButton.classList.remove('btn-disabled');
             this.$refs.resetButton.classList.remove('spinner');
           })
@@ -98,9 +95,11 @@ export default {
               text: `An account with the e-mail ${this.email} was not found. Please verify the e-mail is correct and try again.`,
               duration: 5000
             });
+          })
+          .finally(() => {
             this.$refs.resetButton.classList.remove('btn-disabled');
             this.$refs.resetButton.classList.remove('spinner');
-          })
+          });
       }
     }
   }
