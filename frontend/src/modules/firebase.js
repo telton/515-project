@@ -10,7 +10,14 @@ export default {
       return FirebaseService.currentUser() != null;
     }
   },
-  mutations: {},
+  mutations: {
+    SET_USER(state) {
+      let user = FirebaseService.currentUser();
+      if (user != null) {
+        state.user = user;
+      }
+    }
+  },
   actions: {
     CREATE_USER(store, { email, password }) {
       return FirebaseService.createUser(email, password);
