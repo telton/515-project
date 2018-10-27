@@ -14,7 +14,6 @@ export default {
   name: 'App',
   computed: {
     loggedIn() {
-      console.log(this.$store.getters['auth/isLoggedIn']);
       return this.$store.getters['auth/isLoggedIn'];
     }
   },
