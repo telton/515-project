@@ -8,6 +8,14 @@ export default {
   },
   getters: {
     isLoggedIn(state) {
+      let user = JSON.parse(localStorage.getItem('user'));
+
+      if (user && !isEmpty(user)) {
+        state.user = user;
+      } else {
+        state.user = {};
+      }
+
       return !isEmpty(state.user);
     }
   },
@@ -16,8 +24,10 @@ export default {
       let user = FirebaseService.currentUser();
       if (user != null) {
         state.user = user;
+        localStorage.setItem('user', JSON.stringify(user));
       } else {
         state.user = {};
+        localStorage.setItem('user', JSON.stringify({}));
       }
     }
   },
@@ -32,6 +42,7 @@ export default {
       return FirebaseService.resetPassword(email);
     },
     LOG_OUT() {
+      localStorage.removeItem('user');
       return FirebaseService.logout();
     }
   }
