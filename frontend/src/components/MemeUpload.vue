@@ -1,5 +1,8 @@
 <template>
-  <div class="hello">{{ msg }}</div>
+  <form action="#" method="POST">
+    <input type="file" name="meme" accept="image">
+    <button type="submit">Upload</button>
+  </form>
 </template>
 
 <script>
