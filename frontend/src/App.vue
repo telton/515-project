@@ -1,30 +1,18 @@
 <template>
   <div id="app">
-    <div id="nav" v-if="loggedIn">
-      <router-link to="/">Home</router-link>
-      <button @click="logout">Log Out</button>
-    </div>
+    <nav-bar/>
     <notifications position="bottom right" animation-type="velocity"/>
     <router-view/>
   </div>
 </template>
 
 <script>
+import NavBar from './components/NavBar';
+
 export default {
   name: 'App',
-  computed: {
-    loggedIn() {
-      return this.$store.getters['auth/isLoggedIn'];
-    }
-  },
-  methods: {
-    logout() {
-      this.$store.dispatch('auth/LOG_OUT')
-        .then(() => {
-          this.$store.commit('auth/SET_USER');
-          this.$router.replace('login');
-        });
-    },
+  components: {
+    NavBar
   }
 };
 </script>

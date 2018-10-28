@@ -1,6 +1,7 @@
-import { faShareSquare, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
+import { faShareSquare, faSignInAlt, faUpload } from '@fortawesome/free-solid-svg-icons';
 
 export default {
   faShareSquare,
-  faSignInAlt
+  faSignInAlt,
+  faUpload
 };

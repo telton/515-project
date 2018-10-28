@@ -1,7 +1,7 @@
 <template>
   <div class="w-full max-w-sm mx-auto mt-12 shadow-md">
-    <div class="bg-white border-t-4 border-purple px-4 pt-3">
-      <p class="font-bold text-center text-purple-darkest">Reset Password</p>
+    <div class="bg-white border-t-4 border-teal px-4 pt-3">
+      <p class="font-bold text-center text-teal-darkest">Reset Password</p>
     </div>
     <form
       class="bg-white rounded-b px-8 pt-6 pb-8 mb-4"
@@ -25,11 +25,11 @@
         <button
           @click.prevent="validateBeforeReset"
           :disabled="isResetButtonDisabled"
-          class="bg-purple hover:bg-purple-dark text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          class="bg-teal hover:bg-teal-dark text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           type="button"
           ref="resetButton"
         >
-          <fa icon="share-square"></fa>Password Reset
+          <fa icon="share-square"/>Password Reset
         </button>
       </div>
     </form>

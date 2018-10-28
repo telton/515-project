@@ -1,7 +1,7 @@
 <template>
   <div class="w-full max-w-sm mx-auto mt-12 shadow-md">
-    <div class="bg-white border-t-4 border-purple px-4 pt-3">
-      <p class="font-bold text-center text-purple-darkest">Log in</p>
+    <div class="bg-white border-t-4 border-teal px-4 pt-3">
+      <p class="font-bold text-center text-teal-darkest">Log in</p>
     </div>
     <form
       class="bg-white rounded-b px-8 pt-6 pb-8 mb-4"
@@ -42,22 +42,22 @@
         <button
           @click.prevent="validateBeforeLogin"
           :disabled="isLoginButtonDisabled"
-          class="bg-purple hover:bg-purple-dark text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          class="bg-teal hover:bg-teal-dark text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           type="button"
           ref="loginButton"
         >
-          <fa icon="sign-in-alt"></fa>Log In
+          <fa icon="sign-in-alt"/>Log In
         </button>
         <router-link
           to="/reset-password"
-          class="inline-block align-baseline font-bold text-sm text-purple hover:text-purple-dark"
+          class="inline-block align-baseline font-bold text-sm text-teal hover:text-teal-dark"
         >Forgot Password?</router-link>
       </div>
       <div class="mt-4 text-center">
         <span class="text-grey-dark text-xs">Don't have an account?
           <router-link
             to="/register"
-            class="inline-block align-baseline font-bold text-purple-light hover:text-purple"
+            class="inline-block align-baseline font-bold text-teal-light hover:text-teal"
           >Register here</router-link>
         </span>
       </div>
