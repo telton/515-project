@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div id="nav" v-if="loggedIn">
-      <router-link to="/home">Home</router-link>
+      <router-link to="/">Home</router-link>
       <button @click="logout">Log Out</button>
     </div>
     <notifications position="bottom right" animation-type="velocity"/>

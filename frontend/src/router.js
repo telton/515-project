@@ -18,10 +18,6 @@ let router = new Router({
             redirect: '/login',
         },
         {
-            path: '/',
-            redirect: '/login',
-        },
-        {
             path: '/login',
             name: 'login',
             component: Login,
@@ -37,7 +33,7 @@ let router = new Router({
             component: ResetPassword
         },
         {
-            path: '/home',
+            path: '/',
             name: 'home',
             component: Home,
             meta: {
