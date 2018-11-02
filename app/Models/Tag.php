@@ -30,13 +30,14 @@ class Tag extends Model
     protected $fillable = [
         'title',
         'user_id',
-        'photo_url'
+        'photo_url',
     ];
 
     /**
      * A tag can belong to many memes.
      *
      * @author Tyler Elton <telton007@gmail.com>
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function photos()
