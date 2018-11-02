@@ -35,7 +35,7 @@
       </div>
       <div class="mb-6">
         <label class="block text-grey-darker text-sm font-bold mb-2" for="tags">Tags</label>
-        <v-select id="tags" name="tags" v-model="tags" multiple :options="['foo', 'bar']"></v-select>
+        <v-select id="tags" name="tags" v-model="selectedTags" :options="availableTags" multiple/>
         <p class="text-red text-xs pt-2" v-if="errors.has('tags')">{{ errors.first('tags') }}</p>
       </div>
       <div class="flex items-center justify-between">
@@ -54,6 +54,7 @@
 </template>
 
 <script>
+import Api from '@/Api';
 import vSelect from 'vue-select';
 
 export default {
@@ -62,8 +63,24 @@ export default {
     return {
       title: '',
       image: null,
-      tags: []
+      availableTags: [],
+      selectedTags: []
     };
+  },
+  mounted() {
+    Api.get('/api/tags')
+         .then(response => {
+           if (response.status == 200) {
+             response.data.data.forEach(element => {
+               this.availableTags.push({
+                 label: element.tag,
+                 value: element.id
+               })
+             });
+           }
+         }).catch(err => {
+           console.log(err);
+         })
   },
   watch: {
     isUploadButtonDisabled: {
