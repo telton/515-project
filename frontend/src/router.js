@@ -4,8 +4,7 @@ import Home from './views/Home.vue';
 import Login from './views/Login.vue';
 import Register from './views/Register.vue';
 import ResetPassword from './views/ResetPassword.vue';
-import firebase from 'firebase/app';
-import 'firebase/auth';
+import store from './store';
 
 Vue.use(Router);
 
@@ -44,15 +43,19 @@ let router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
-    let currentUser = firebase.auth().currentUser;
-    let requiresAuth = to.matched.some(record => record.meta.requiresAuth);
-
-    if (requiresAuth && !currentUser) {
-        next('login');
-    } else if (!requiresAuth && currentUser) {
-        next('home');
-    } else {
+    if (to.matched.some(record => record.meta.requiresAuth)) {
+      if (store.getters['auth/isLoggedIn'] == null) {
+        next({
+          path: '/login',
+          query: {
+            redirect: to.fullPath,
+          },
+        });
+      } else {
         next();
+      }
+    } else {
+      next();
     }
 });
 
