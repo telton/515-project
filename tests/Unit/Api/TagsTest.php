@@ -25,7 +25,7 @@ class TagsTest extends TestCase
         $response = $this->get('/api/tags');
         foreach ($tags as $tag) {
             $response->assertJsonFragment([
-            'id' => $tag->id,
+            'id'  => $tag->id,
             'tag' => $tag->tag,
           ]);
         }
