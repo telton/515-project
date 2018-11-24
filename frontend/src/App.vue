@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <nav-bar/>
-    <notifications position="bottom right" animation-type="velocity"/>
+    <notifications position="bottom left" animation-type="velocity"/>
     <router-view/>
   </div>
 </template>
@@ -18,10 +18,10 @@ export default {
 </script>
 
 <style lang="scss">
-@import url('https://fonts.googleapis.com/css?family=Marvel');
+@import url("https://fonts.googleapis.com/css?family=Marvel");
 
 html,
 body {
-  font-family: 'Marvel', sans-serif;
+  font-family: "Marvel", sans-serif;
 }
 </style>
