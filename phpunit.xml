@@ -32,5 +32,8 @@
         <env name="DB_CONNECTION" value="testing"/>
         <env name="MAIL_PRETEND" value="true"/>
         <env name="APP_KEY" value="base64:68x4kMmkHRNVoPgdAvT7gTmPI8TAFVsOuhAVBr2YX+s="/>
+        <env name="CLOUDINARY_CLOUD_NAME" value="domain.com"/>
+        <env name="CLOUDINARY_API_KEY" value="123456"/>
+        <env name="CLOUDINARY_SECRET" value="654321"/>
     </php>
 </phpunit>
