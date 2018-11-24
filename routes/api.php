@@ -12,5 +12,15 @@
 */
 
 Route::namespace('Api')->group(function () {
+    // Tags.
     Route::get('tags', 'TagsController@index');
+
+    // Memes.
+    Route::resource('memes', 'MemesController')->names([
+        'index'   => 'api.memes.index',
+        'store'   => 'api.memes.store',
+        'show'    => 'api.memes.show',
+        'update'  => 'api.memes.update',
+        'destroy' => 'api.memes.destroy',
+    ]);
 });
