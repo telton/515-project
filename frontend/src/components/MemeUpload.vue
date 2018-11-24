@@ -6,6 +6,7 @@
     <form
       class="bg-white rounded-b px-8 pt-6 pb-8 mb-4"
       @keydown.enter.prevent="validateBeforeUpload"
+      enctype="multipart/form-data"
     >
       <div class="mb-4">
         <label class="block text-grey-darker text-sm font-bold mb-2" for="title">Title</label>
@@ -25,13 +26,15 @@
         <label class="block text-grey-darker text-sm font-bold mb-2" for="image">Image</label>
         <input
           class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
-          id="image"
-          name="image"
+          id="meme"
+          name="meme"
           type="file"
-          v-validate="'required|file'"
+          ref="meme"
+          @change="onFileChange"
+          v-validate="'required'"
           required
         >
-        <p class="text-red text-xs pt-2" v-if="errors.has('image')">{{ errors.first('image') }}</p>
+        <p class="text-red text-xs pt-2" v-if="errors.has('meme')">{{ errors.first('meme') }}</p>
       </div>
       <div class="mb-6">
         <label class="block text-grey-darker text-sm font-bold mb-2" for="tags">Tags</label>
@@ -54,33 +57,39 @@
 </template>
 
 <script>
-import Api from '@/Api';
-import vSelect from 'vue-select';
+import Api from '@/Api'
+import vSelect from 'vue-select'
 
 export default {
   name: 'MemeUpload',
   data() {
     return {
       title: '',
-      image: null,
+      meme: null,
       availableTags: [],
       selectedTags: []
-    };
+    }
   },
   mounted() {
-    Api.get('/api/tags')
-         .then(response => {
-           if (response.status == 200) {
-             response.data.data.forEach(element => {
-               this.availableTags.push({
-                 label: element.tag,
-                 value: element.id
-               })
-             });
-           }
-         }).catch(err => {
-           console.log(err);
-         })
+    Api.get('api/tags')
+      .then(response => {
+        if (response.status === 200) {
+          response.data.data.forEach(element => {
+            this.availableTags.push({
+              label: element.tag,
+              value: element.id
+            })
+          })
+        }
+      })
+      .catch(() => {
+        this.$notify({
+          type: 'error',
+          title: 'Error!',
+          text: 'There was an error fetching available tags.',
+          duration: 5000
+        })
+      })
   },
   watch: {
     isUploadButtonDisabled: {
@@ -88,35 +97,78 @@ export default {
       handler(newVal) {
         this.$nextTick(() => {
           if (newVal) {
-            this.$refs.uploadButton.classList.add('btn-disabled');
+            this.$refs.uploadButton.classList.add('btn-disabled')
           } else {
-            this.$refs.uploadButton.classList.remove('btn-disabled');
+            this.$refs.uploadButton.classList.remove('btn-disabled')
           }
-        });
-      },
-    },
+        })
+      }
+    }
   },
   computed: {
     isUploadButtonDisabled() {
-      return this.title.trim() != '' || this.image != null || this.tags != [];
+      return this.title.trim() === '' || this.meme === null
     }
   },
   methods: {
+    onFileChange() {
+      if (this.$refs.meme.files.length === 0) return
+
+      this.meme = this.$refs.meme.files[0]
+    },
     validateBeforeUpload() {
-      this.$validator.validateAll();
+      this.$validator.validateAll()
 
       if (!this.errors.any()) {
-        this.uploadMeme();
+        this.uploadMeme()
       }
     },
     uploadMeme() {
-      //
+      if (!this.isUploadButtonDisabled) {
+        this.$refs.uploadButton.classList.add('btn-disabled')
+        this.$refs.uploadButton.classList.add('spinner')
+
+        let tags = []
+        this.selectedTags.forEach(element => {
+          tags.push(element.value)
+        })
+
+        this.$store
+          .dispatch('meme/UPLOAD_MEME', {
+            title: this.title,
+            user_id: this.$store.getters['auth/user'].uid,
+            meme: this.meme,
+            tags: tags
+          })
+          .then(res => {
+            if (res.status === 201) {
+              this.$notify({
+                type: 'success',
+                title: 'Success!',
+                text: 'Your meme has been successfully uploaded!',
+                duration: 5000
+              })
+            }
+          })
+          .catch(() => {
+            this.$notify({
+              type: 'error',
+              title: 'Error!',
+              text: 'There was an error uploading your meme.',
+              duration: 5000
+            })
+          })
+          .finally(() => {
+            this.$refs.uploadButton.classList.remove('btn-disabled')
+            this.$refs.uploadButton.classList.remove('spinner')
+          })
+      }
     }
   },
   components: {
     vSelect
   }
-};
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
