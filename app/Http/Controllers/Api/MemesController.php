@@ -34,7 +34,7 @@ class MemesController extends ApiController
      */
     public function index()
     {
-        $memes = Meme::all()->take(20);
+        $memes = Meme::orderBy('created_at', 'desc')->take(20)->get(['*']);
 
         return MemeResource::make($memes);
     }
