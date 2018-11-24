@@ -40,8 +40,8 @@ class Tag extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function photos()
+    public function memes()
     {
-        return $this->belongsToMany(\App\Models\Meme::class, 'tag_id', 'id');
+        return $this->belongsToMany(\App\Models\Meme::class, 'memes_tags', 'tag_id', 'meme_id');
     }
 }

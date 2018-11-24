@@ -40,10 +40,10 @@ class Meme extends Model
      *
      * @author Tyler Elton <telton007@gmail.com>
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function tags()
     {
-        return $this->hasMany(\App\Models\Tag::class, 'meme_id', 'id');
+        return $this->belongsToMany(\App\Models\Tag::class, 'memes_tags', 'meme_id', 'tag_id');
     }
 }
