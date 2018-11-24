@@ -34,7 +34,7 @@ class MemesController extends ApiController
      */
     public function index()
     {
-        $memes = Meme::all();
+        $memes = Meme::all()->take(20);
 
         return MemeResource::make($memes);
     }
