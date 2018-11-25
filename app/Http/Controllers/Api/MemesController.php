@@ -30,13 +30,12 @@ class MemesController extends ApiController
     /**
      * Display a listing of the resource.
      *
+     * @param  \App\Models\Meme $meme
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Meme $meme)
     {
-        $memes = Meme::orderBy('created_at', 'desc')->take(20)->get(['*']);
-
-        return MemeResource::make($memes);
+        return MemeResource::collection($meme->with('tags')->orderBy('created_at', 'desc')->paginate());
     }
 
     /**
