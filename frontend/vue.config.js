@@ -1,11 +1,5 @@
 module.exports = {
     // proxy API requests to Valet during development
-    devServer: {
-        proxy:
-            process.env.NODE_ENV !== "production"
-                ? "http://515-project.test"
-                : null,
-    },
 
     // output built static files to Laravel's public dir.
     // note the "build" script in package.json needs to be modified as well.
