@@ -57,7 +57,6 @@
 </template>
 
 <script>
-import Api from '@/Api'
 import vSelect from 'vue-select'
 
 export default {
@@ -66,30 +65,11 @@ export default {
     return {
       title: '',
       meme: null,
-      availableTags: [],
       selectedTags: []
     }
   },
   mounted() {
-    Api.get('api/tags')
-      .then(response => {
-        if (response.status === 200) {
-          response.data.data.forEach(element => {
-            this.availableTags.push({
-              label: element.tag,
-              value: element.id
-            })
-          })
-        }
-      })
-      .catch(() => {
-        this.$notify({
-          type: 'error',
-          title: 'Error!',
-          text: 'There was an error fetching available tags.',
-          duration: 5000
-        })
-      })
+    this.$store.dispatch('tag/FETCH_TAGS')
   },
   watch: {
     isUploadButtonDisabled: {
@@ -108,6 +88,19 @@ export default {
   computed: {
     isUploadButtonDisabled() {
       return this.title.trim() === '' || this.meme === null
+    },
+    availableTags() {
+      let availableTags = []
+      let tags = this.$store.getters['tag/tags']
+
+      tags.forEach(element => {
+        availableTags.push({
+          label: element.tag,
+          value: element.id
+        })
+      })
+
+      return availableTags
     }
   },
   methods: {
@@ -148,6 +141,10 @@ export default {
                 text: 'Your meme has been successfully uploaded!',
                 duration: 5000
               })
+
+              let { data } = res.data
+
+              this.$store.commit('meme/ADD_MEME', data)
             }
           })
           .catch(() => {
