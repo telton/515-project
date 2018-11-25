@@ -1,4 +1,4 @@
-import Api from "@/Api";
+import ApiService from "../services/ApiService";
 
 export default {
     namespaced: true,
@@ -12,7 +12,7 @@ export default {
     },
     actions: {
         FETCH_TAGS({ state }) {
-            Api.get("tags")
+            ApiService.fetchTags()
                 .then(response => {
                     if (response.status === 200) {
                         response.data.data.forEach(element => {

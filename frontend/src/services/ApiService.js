@@ -1,4 +1,4 @@
-import Api from "../Api";
+import Api from "../api";
 
 export default {
     uploadMeme({ title, user_id, meme, tags }) {
@@ -19,5 +19,8 @@ export default {
     },
     fetchMemes() {
         return Api.get("memes");
+    },
+    fetchTags() {
+        return Api.get("tags");
     },
 };
