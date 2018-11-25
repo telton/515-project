@@ -23,6 +23,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->singleton(\App\Services\Cloudinary::class, function () {
+            return new \App\Services\Cloudinary(
+                config('services.cloudinary.cloud_name'),
+                config('services.cloudinary.api_key'),
+                config('services.cloudinary.secret')
+            );
+        });
     }
 }

@@ -1,10 +1,10 @@
 cache:
   directories:
-    - '$HOME/.composer/cache'
+    - "$HOME/.composer/cache"
 jobs:
   include:
-    - stage: 'PHP Tests'
-      name: 'PHPUnit tests'
+    - stage: PHP Tests
+      name: PHPUnit tests
       language: php
       php:
         - 7.1
@@ -14,35 +14,33 @@ jobs:
       install:
         - travis_retry composer update --prefer-dist --no-interaction --prefer-stable --no-suggest
       script: vendor/bin/phpunit
-    - stage: 'JS Tests'
-      name: 'Jest unit tests'
+    - stage: JS Tests
+      name: Jest unit tests
       language: node_js
       node_js:
-        - 'lts/*'
+        - lts/*
       install:
         - travis_retry cd frontend && npm install
       script: npm run test:unit
-    - stage: 'Deploy dev'
-      name: 'Deploy to development'
+    - stage: Deploy dev
+      name: Deploy to development
       before_install:
-        - echo $encrypted_801c70028c9b_key
-        - echo $encrypted_801c70028c9b_iv
-        - openssl aes-256-cbc -K $encrypted_801c70028c9b_key -iv $encrypted_801c70028c9b_iv -in ./.travis/id_rsa.enc -out /tmp/id_rsa -d
+        - openssl aes-256-cbc -K $encrypted_af1190073add_key -iv $encrypted_af1190073add_iv -in ./.travis/id_rsa.enc -out /tmp/id_rsa -d
         - eval "$(ssh-agent -s)"
         - chmod 600 /tmp/id_rsa
         - ssh-add /tmp/id_rsa
         - ssh-keyscan $SERVER_HOST >> ~/.ssh/known_hosts
       script:
-        - ssh $DEPLOY_USER@$SERVER_HOST "(cd /var/www/515-project-dev.tylerelton.com && git pull && composer update && cd frontend && npm install)"
+        - ssh $DEPLOY_USER@$SERVER_HOST "(cd $DEV_LOCATION && git pull && composer update && cd frontend && npm install)"
       if: branch = dev
-    - stage: 'Deploy prod'
-      name: 'Deploy to production'
+    - stage: Deploy prod
+      name: Deploy to production
       before_install:
-        - openssl aes-256-cbc -K $encrypted_801c70028c9b_key -iv $encrypted_801c70028c9b_iv -in ./.travis/id_rsa.enc -out /tmp/id_rsa -d
+        - openssl aes-256-cbc -K $encrypted_af1190073add_key -iv $encrypted_af1190073add_iv -in ./.travis/id_rsa.enc -out /tmp/id_rsa -d
         - eval "$(ssh-agent -s)"
         - chmod 600 /tmp/id_rsa
         - ssh-add /tmp/id_rsa
         - ssh-keyscan $SERVER_HOST >> ~/.ssh/known_hosts
       script:
-        - ssh $DEPLOY_USER@$SERVER_HOST "(cd /var/www/515-project.tylerelton.com && git pull && composer update && cd frontend && npm install)"
+        - ssh $DEPLOY_USER@$SERVER_HOST "(cd $PROD_LOCATION && git pull && composer update && cd frontend && npm install)"
       if: branch = master
