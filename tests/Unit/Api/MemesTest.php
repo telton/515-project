@@ -104,7 +104,12 @@ class MemesTest extends TestCase
 
         // We should have our newly created meme in our response.
         $response->assertJson([
-            'data' => $meme->toArray(),
+            'data' => [
+                'title'      => $meme->title,
+                'user_id'    => $meme->user_id,
+                'photo_url'  => $meme->photo_url,
+                'created_at' => $meme->created_at->toDateTimeString(),
+            ],
         ]);
     }
 

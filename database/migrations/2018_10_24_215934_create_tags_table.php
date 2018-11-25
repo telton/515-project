@@ -19,7 +19,7 @@ class CreateTagsTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('meme_tags', function (Blueprint $table) {
+        Schema::create('memes_tags', function (Blueprint $table) {
             $table->unsignedInteger('meme_id');
             $table->unsignedInteger('tag_id');
 
