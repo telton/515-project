@@ -29,7 +29,7 @@ class CloudinaryTest extends TestCase
             'url'               => 'http://res.cloudinary.com/domain/image/upload/v987654321/1234567890.jpg',
             'secure_url'        => 'https://res.cloudinary.com/domain/image/upload/v987654321/1234567890.jpg',
             'original_filename' => 'memey',
-          ];
+        ];
         $cloudinary = $this->mockCloudinaryUpload($returnValue);
 
         $this->assertEquals($returnValue, $cloudinary->upload(\Illuminate\Http\UploadedFile::fake()->image('meme.jpg')));
