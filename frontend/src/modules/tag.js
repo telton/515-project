@@ -12,22 +12,13 @@ export default {
     },
     actions: {
         FETCH_TAGS({ state }) {
-            ApiService.fetchTags()
-                .then(response => {
-                    if (response.status === 200) {
-                        response.data.data.forEach(element => {
-                            state.tags.push(element);
-                        });
-                    }
-                })
-                .catch(() => {
-                    this.$notify({
-                        type: "error",
-                        title: "Error!",
-                        text: "There was an error fetching available tags.",
-                        duration: 5000,
+            ApiService.fetchTags().then(response => {
+                if (response.status === 200) {
+                    response.data.data.forEach(element => {
+                        state.tags.push(element);
                     });
-                });
+                }
+            });
         },
     },
 };

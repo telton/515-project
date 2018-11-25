@@ -57,14 +57,6 @@ export default {
                             });
                         });
                     }
-                })
-                .catch(() => {
-                    this.$notify({
-                        type: "error",
-                        title: "Error!",
-                        text: "There was an error fetching available memes.",
-                        duration: 5000,
-                    });
                 });
         },
     },
