@@ -30,7 +30,8 @@ class MemesController extends ApiController
     /**
      * Display a listing of the resource.
      *
-     * @param  \App\Models\Meme $meme
+     * @param \App\Models\Meme $meme
+     *
      * @return \Illuminate\Http\Response
      */
     public function index(Meme $meme)
