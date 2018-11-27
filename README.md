@@ -10,3 +10,4 @@ This application was created to demo a handful of different cloud computing solu
 -   [Algolia](https://algolia.com) for search
 -   [TravisCI](https://travis-ci.org) for building/testing/deployment
 -   [StyleCI](https://styleci.io) for automatic code formatting (this is only used for PHP formatting)
+-   [Cloudflare](https://cloudflare.com/) for DNS, DDoS protection and automatic SSL security
