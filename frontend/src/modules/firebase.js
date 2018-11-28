@@ -10,6 +10,11 @@ export default {
         isLoggedIn(state) {
             let user = JSON.parse(localStorage.getItem("user"));
 
+            // If there is a user in localstorage, but not in the store, set it in the store.
+            if (isEmpty(state.user) && !isEmpty(user)) {
+                state.user = user;
+            }
+
             return !isEmpty(state.user) && !isEmpty(user);
         },
         user() {
