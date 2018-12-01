@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -13,6 +11,16 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::namespace('Api')->group(function () {
+    // Tags.
+    Route::get('tags', 'TagsController@index');
+
+    // Memes.
+    Route::resource('memes', 'MemesController')->names([
+        'index'   => 'api.memes.index',
+        'store'   => 'api.memes.store',
+        'show'    => 'api.memes.show',
+        'update'  => 'api.memes.update',
+        'destroy' => 'api.memes.destroy',
+    ]);
 });

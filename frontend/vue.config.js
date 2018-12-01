@@ -1,7 +1,7 @@
 module.exports = {
     // proxy API requests to Valet during development
     devServer: {
-        proxy: "http://515-project.test"
+        proxy: "http://515-project.test",
     },
 
     // output built static files to Laravel's public dir.
@@ -13,5 +13,5 @@ module.exports = {
     indexPath:
         process.env.NODE_ENV === "production"
             ? "../resources/views/index.blade.php"
-            : "index.html"
+            : "index.html",
 };

@@ -1,0 +1,28 @@
+@tailwind preflight;
+@tailwind components;
+
+/**
+  * Here you would add any of your custom component classes; stuff that you'd
+  * want loaded *before* the utilities so that the utilities could still
+  * override them.
+  * @import "components/buttons";
+  * @import "components/forms";
+  */
+@import 'components/svg';
+@import 'components/button';
+@import 'components/form';
+@import 'components/notifications';
+
+@tailwind utilities;
+
+/**
+  * Here you would add any custom utilities you need that don't come out of the
+  * box with Tailwind.
+  * @import "utilities/background-patterns";
+  * @import "utilities/skew-transforms";
+  */
+html,
+body,
+#app {
+    @apply h-screen bg-grey-lighter;
+}
