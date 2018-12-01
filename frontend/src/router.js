@@ -4,6 +4,7 @@ import Home from "./views/Home.vue";
 import Login from "./views/Login.vue";
 import Register from "./views/Register.vue";
 import ResetPassword from "./views/ResetPassword.vue";
+import Search from "./views/Search.vue";
 import store from "./store";
 
 Vue.use(Router);
@@ -35,6 +36,14 @@ let router = new Router({
             path: "/",
             name: "home",
             component: Home,
+            meta: {
+                requiresAuth: true,
+            },
+        },
+        {
+            path: "/search",
+            name: "search",
+            component: Search,
             meta: {
                 requiresAuth: true,
             },

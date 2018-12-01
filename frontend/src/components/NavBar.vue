@@ -1,12 +1,18 @@
 <template>
-  <nav id='nav' v-if='loggedIn' class='p-4 bg-teal opacity-50'>
+  <nav id='nav' v-if='loggedIn' class='p-4 bg-teal-lighter opacity-50'>
     <div class='flex justify-between'>
-      <router-link
-        to='/'
-        class='p-2 no-underline text-blue-dark hover:text-blue-darkest font-bold uppercase tracking-wide'
-      >Home</router-link>
+      <div>
+        <router-link
+          to='/'
+          class='p-2 no-underline text-teal-dark hover:text-teal-darkest font-bold uppercase tracking-wide'
+        >Home</router-link>
+        <router-link
+          to='/search'
+          class='p-2 no-underline text-teal-dark hover:text-teal-darkest font-bold uppercase tracking-wide'
+        >Search</router-link>
+      </div>
       <button
-        class='no-underline text-blue-dark hover:text-blue-darkest font-bold uppercase tracking-wide'
+        class='no-underline text-teal-dark hover:text-teal-darkest font-bold uppercase tracking-wide'
         @click='logout'
       >Log Out</button>
     </div>
