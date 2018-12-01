@@ -52,6 +52,7 @@ class Tag extends Model
      * Get the index name for the model.
      *
      * @author Tyler Elton <telton007@gmail.com>
+     *
      * @return string
      */
     public function searchableAs()
@@ -63,6 +64,7 @@ class Tag extends Model
      * Get the indexable data array for the model.
      *
      * @author Tyler Elton <telton007@gmail.com>
+     *
      * @return array
      */
     public function toSearchableArray()
