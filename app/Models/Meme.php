@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 class Meme extends Model
 {
+    use Searchable;
+
     /**
      * The table associated with the model.
      *
@@ -45,5 +48,16 @@ class Meme extends Model
     public function tags()
     {
         return $this->belongsToMany(\App\Models\Tag::class, 'memes_tags', 'meme_id', 'tag_id');
+    }
+
+    /**
+     * Get the index name for the model.
+     *
+     * @author Tyler Elton <telton007@gmail.com>
+     * @return string
+     */
+    public function searchableAs()
+    {
+        return 'memes_index';
     }
 }
