@@ -60,4 +60,18 @@ class Meme extends Model
     {
         return 'memes_index';
     }
+
+    /**
+     * Get the indexable data array for the model.
+     *
+     * @author Tyler Elton <telton007@gmail.com>
+     * @return array
+     */
+    public function toSearchableArray()
+    {
+        // Eager load the tags before transforming to an array.
+        $this->tags;
+
+        return $this->toArray();
+    }
 }
