@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 class Tag extends Model
 {
+    use Searchable;
+
     /**
      * The table associated with the model.
      *
@@ -43,5 +46,27 @@ class Tag extends Model
     public function memes()
     {
         return $this->belongsToMany(\App\Models\Meme::class, 'memes_tags', 'tag_id', 'meme_id');
+    }
+
+    /**
+     * Get the index name for the model.
+     *
+     * @author Tyler Elton <telton007@gmail.com>
+     * @return string
+     */
+    public function searchableAs()
+    {
+        return 'tags_index';
+    }
+
+    /**
+     * Get the indexable data array for the model.
+     *
+     * @author Tyler Elton <telton007@gmail.com>
+     * @return array
+     */
+    public function toSearchableArray()
+    {
+        return $this->toArray();
     }
 }
