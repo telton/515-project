@@ -23,4 +23,7 @@ export default {
     fetchTags() {
         return Api.get("tags");
     },
+    searchMemes({ search }) {
+        return Api.get(`memes?search=${search}`);
+    },
 };

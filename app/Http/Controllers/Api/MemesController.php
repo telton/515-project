@@ -30,13 +30,26 @@ class MemesController extends ApiController
     /**
      * Display a listing of the resource.
      *
-     * @param \App\Models\Meme $meme
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Meme         $meme
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Meme $meme)
+    public function index(Request $request, Meme $meme)
     {
-        return MemeResource::collection($meme->with('tags')->orderBy('created_at', 'desc')->paginate());
+        $search = $request->query('search');
+
+        // If there's a value to search by, hit search (Algolia/Laravel Scout).
+        if ($search) {
+            $memes = Meme::search($search)->orderBy('created_at', 'desc')->paginate();
+        } else {
+            $memes = $meme->orderBy('created_at', 'desc')->paginate();
+        }
+
+        // Eager load the tags.
+        $memes->load('tags');
+
+        return MemeResource::collection($memes);
     }
 
     /**
